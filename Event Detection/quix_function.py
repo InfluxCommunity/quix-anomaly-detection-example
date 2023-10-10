@@ -22,7 +22,7 @@ class QuixFunction:
         # Normalize the anomalous data
         print(df)
         df = df.set_index('timestamp')
-        anom_data = df.drop(columns=['iox::measurement', 'machineID'])
+        anom_data = df.drop(columns=['machineID'])
 
 
         # Use the Autoencoder to predict on the anomalous data
