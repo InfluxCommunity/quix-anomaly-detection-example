@@ -9,6 +9,7 @@ variables:
   - name: mqtt_topic
     inputType: FreeText
     description: The root for messages in MQTT, this can be anything
+    defaultValue: machine/#
     required: true
   - name: mqtt_server
     inputType: FreeText
