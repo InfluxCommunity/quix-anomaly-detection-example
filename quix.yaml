@@ -99,7 +99,7 @@ deployments:
   - name: influxdb-query
     application: influxdb-query
     deploymentType: Service
-    version: d741ad1f168171abd138e2ad75041e68bac2ad88
+    version: 392f510e525b2deeb85ac235e0c00aa01c538def
     resources:
       cpu: 200
       memory: 500
