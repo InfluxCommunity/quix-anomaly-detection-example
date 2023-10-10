@@ -34,7 +34,7 @@ variables:
   - name: INFLUXDB_MEASUREMENT_NAME
     inputType: FreeText
     description: The InfluxDB measurement to read data from. If not specified, the name of the output topic will be used
-    defaultValue: <INSERT MEASUREMENT>
+    defaultValue: machine_data
     required: false
 dockerfile: build/dockerfile
 runEntryPoint: main.py
