@@ -19,7 +19,7 @@ variables:
   - name: INFLUXDB_ORG
     inputType: FreeText
     description: Organization name in InfluxDB.
-    defaultValue: ''
+    defaultValue: 6a841c0c08328fb1
     required: false
   - name: INFLUXDB_DATABASE
     inputType: FreeText
