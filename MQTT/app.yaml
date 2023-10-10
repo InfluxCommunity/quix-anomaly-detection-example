@@ -19,7 +19,7 @@ variables:
   - name: mqtt_port
     inputType: FreeText
     description: The port of your MQTT instance
-    defaultValue: 8883
+    defaultValue: 1883
     required: true
   - name: mqtt_username
     inputType: FreeText
