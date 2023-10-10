@@ -90,9 +90,10 @@ def get_data():
                 # If there are rows to write to the stream at this time
                 stream_producer.timeseries.buffer.publish(df)
                 print("query success")
+                sleep(0.5)
 
                 # Wait for the next interval
-                sleep(interval_seconds)
+            sleep(interval_seconds)
                  
         except Exception as e:
             print("query failed", flush=True)
