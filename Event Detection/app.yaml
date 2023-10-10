@@ -11,6 +11,11 @@ variables:
     description: This is the output topic for hard braking events
     defaultValue: hard-braking
     required: true
+  - name: model
+    inputType: FreeText
+    description: ''
+    defaultValue: jayclifford345/vibration-autoencoder
+    required: false
 dockerfile: build/dockerfile
 runEntryPoint: main.py
 defaultFile: quix_function.py
