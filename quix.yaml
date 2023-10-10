@@ -5,7 +5,52 @@ metadata:
   version: 1.0
 
 # This section describes the Deployments of the data pipeline
-deployments: []
+deployments:
+  - name: MQTT
+    application: MQTT
+    deploymentType: Service
+    version: 2d9dec19eb000f09b21443b6067eb6f004f67659
+    resources:
+      cpu: 200
+      memory: 500
+      replicas: 1
+    desiredStatus: Running
+    variables:
+      - name: topic
+        inputType: OutputTopic
+        description: Name of the output topic to publish to.
+        required: true
+        value: rawdata
+      - name: mqtt_topic
+        inputType: FreeText
+        description: The root for messages in MQTT, this can be anything
+        required: true
+        value: machine/#
+      - name: mqtt_server
+        inputType: FreeText
+        description: The address of your MQTT server
+        required: true
+        value: broker.hivemq.com
+      - name: mqtt_port
+        inputType: FreeText
+        description: The port of your MQTT instance
+        required: true
+        value: 1883
+      - name: mqtt_username
+        inputType: FreeText
+        description: Your MQTT username
+        required: true
+        value: foo
+      - name: mqtt_version
+        inputType: FreeText
+        description: 'MQTT protocol version: 3.1, 3.1.1, 5'
+        required: true
+        value: 3.1.1
+      - name: mqtt_password
+        inputType: Secret
+        description: ''
+        required: true
+        value: mqtt_password
 
 # This section describes the Topics of the data pipeline
 topics:
