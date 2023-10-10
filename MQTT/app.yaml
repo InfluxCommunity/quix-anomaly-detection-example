@@ -1,7 +1,7 @@
 name: MQTT
 language: python
 variables:
-  - name: output
+  - name: rawdata
     inputType: OutputTopic
     description: Name of the output topic to publish to.
     defaultValue: ''
