@@ -29,7 +29,7 @@ variables:
   - name: INFLUXDB_DATABASE
     inputType: FreeText
     description: Database name in InfluxDB where data is stored.
-    defaultValue: <DATABASE>
+    defaultValue: quix
     required: true
   - name: INFLUXDB_MEASUREMENT_NAME
     inputType: FreeText
