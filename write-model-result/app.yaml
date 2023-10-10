@@ -4,7 +4,7 @@ variables:
   - name: input
     inputType: InputTopic
     description: This is the input topic
-    defaultValue: detection-result
+    defaultValue: detection-results
     required: true
   - name: INFLUXDB_HOST
     inputType: FreeText
