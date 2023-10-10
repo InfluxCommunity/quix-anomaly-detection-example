@@ -1,0 +1,18 @@
+# Quix Project Descriptor
+# This file describes the data pipeline and configuration of resources of a Quix Project.
+
+metadata:
+  version: 1.0
+
+# This section describes the Deployments of the data pipeline
+deployments: []
+
+# This section describes the Topics of the data pipeline
+topics:
+  - name: rawdata
+    persisted: false
+    configuration:
+      partitions: 2
+      replicationFactor: 2
+      retentionInMinutes: 43200
+      retentionInBytes: 262144000
