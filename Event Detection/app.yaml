@@ -1,0 +1,16 @@
+name: Event Detection
+language: python
+variables:
+  - name: input
+    inputType: InputTopic
+    description: This is the input topic for f1 data
+    defaultValue: ''
+    required: true
+  - name: output
+    inputType: OutputTopic
+    description: This is the output topic for hard braking events
+    defaultValue: hard-braking
+    required: true
+dockerfile: build/dockerfile
+runEntryPoint: main.py
+defaultFile: quix_function.py
