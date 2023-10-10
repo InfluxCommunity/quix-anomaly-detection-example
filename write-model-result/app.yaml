@@ -29,7 +29,7 @@ variables:
   - name: INFLUXDB_TAG_COLUMNS
     inputType: FreeText
     description: Columns to be used as tags when writing data to InfluxDB.
-    defaultValue: "['tag1', 'tag2']"
+    defaultValue: "['machineID']"
     required: false
   - name: INFLUXDB_MEASUREMENT_NAME
     inputType: FreeText
