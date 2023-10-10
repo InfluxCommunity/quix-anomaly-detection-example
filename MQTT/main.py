@@ -20,8 +20,8 @@ if not mqtt_port.isnumeric():
 
 mqtt_client = paho.Client(client_id = os.environ["Quix__Deployment__Name"], userdata = None, protocol = mqtt_protocol_version())
 # we'll be using tls
-mqtt_client.tls_set(tls_version = mqtt.client.ssl.PROTOCOL_TLS)
-mqtt_client.username_pw_set(os.environ["mqtt_username"], os.environ["mqtt_password"])
+#mqtt_client.tls_set(tls_version = mqtt.client.ssl.PROTOCOL_TLS)
+#mqtt_client.username_pw_set(os.environ["mqtt_username"], os.environ["mqtt_password"])
 
 # Quix injects credentials automatically to the client.
 # Alternatively, you can always pass an SDK token manually as an argument.
