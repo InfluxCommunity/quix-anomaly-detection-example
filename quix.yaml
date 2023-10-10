@@ -9,14 +9,14 @@ deployments:
   - name: MQTT
     application: MQTT
     deploymentType: Service
-    version: 2d9dec19eb000f09b21443b6067eb6f004f67659
+    version: 80a595a522653946d0cc76b97c24715869b19818
     resources:
       cpu: 200
       memory: 500
       replicas: 1
     desiredStatus: Running
     variables:
-      - name: topic
+      - name: output
         inputType: OutputTopic
         description: Name of the output topic to publish to.
         required: true
