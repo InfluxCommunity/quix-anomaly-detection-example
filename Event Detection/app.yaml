@@ -9,7 +9,7 @@ variables:
   - name: output
     inputType: OutputTopic
     description: This is the output topic for hard braking events
-    defaultValue: hard-braking
+    defaultValue: detection-results
     required: true
   - name: model
     inputType: FreeText
