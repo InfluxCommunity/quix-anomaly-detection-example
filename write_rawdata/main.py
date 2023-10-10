@@ -1,10 +1,9 @@
 import quixstreams as qx
 import os
 import pandas as pd
-import influxdb_client_3 as InfluxDBClient3
+from influxdb_client_3 import InfluxDBClient3, Point, WritePrecision
 import ast
-import datetime
-
+import json
 
 client = qx.QuixStreamingClient()
 
@@ -18,7 +17,7 @@ tag_columns = ast.literal_eval(os.environ.get('INFLUXDB_TAG_COLUMNS', "[]"))
 # Read the enviroment variable for measurement name and convert it to a list
 measurement_name = os.environ.get('INFLUXDB_MEASUREMENT_NAME', os.environ["input"])
                                            
-client = InfluxDBClient3.InfluxDBClient3(token=os.environ["INFLUXDB_TOKEN"],
+client = InfluxDBClient3(token=os.environ["INFLUXDB_TOKEN"],
                          host=os.environ["INFLUXDB_HOST"],
                          org=os.environ["INFLUXDB_ORG"],
                          database=os.environ["INFLUXDB_DATABASE"])
@@ -29,24 +28,43 @@ def on_dataframe_received_handler(stream_consumer: qx.StreamConsumer, df: pd.Dat
         # Reformat the dataframe to match the InfluxDB format
         df = df.rename(columns={'timestamp': 'time'})
         df = df.set_index('time')
-        df["stream_id"] = stream_consumer.stream_id
 
         client.write(df, data_frame_measurement_name=measurement_name, data_frame_tag_columns=tag_columns) 
-
-        print(f"{str(datetime.datetime.utcnow())}: Persisted {df.shape[0]} rows.")
+        print("Write successful")
     except Exception as e:
-        print("{str(datetime.datetime.utcnow())}: Write failed")
         print(e)
+        print("Write failed")
+
+
+def on_event_data_received_handler(stream_consumer: qx.StreamConsumer,data: qx.EventData):
+    with data:
+        jsondata = json.loads(data.value)
+        metadata = jsondata['metadata']
+        data_points = jsondata['data']
+        fields = {k: v for d in data_points for k, v in d.items()}
+        timestamp = str(data.timestamp)
+
+
+
+        
+        point = {"measurement": measurement_name, "tags" : metadata, "fields": fields, "time": timestamp}
+
+        print(point)
+        client.write(record=point)
+        
+        
+
+
+        
 
 
 def on_stream_received_handler(stream_consumer: qx.StreamConsumer):
-    
-    # Buffer to batch rows every 250ms to reduce CPU overhead.
-    buffer = stream_consumer.timeseries.create_buffer()
-    buffer.time_span_in_milliseconds = 250
-    buffer.buffer_timeout = 250
+    # subscribe to new DataFrames being received
+    # if you aren't familiar with DataFrames there are other callbacks available
+    # refer to the docs here: https://docs.quix.io/sdk/subscribe.html
+    stream_consumer.timeseries.on_dataframe_received = on_dataframe_received_handler
 
-    buffer.on_dataframe_released = on_dataframe_received_handler
+    stream_consumer.events.on_data_received = on_event_data_received_handler
 
 
 # subscribe to new streams being received
