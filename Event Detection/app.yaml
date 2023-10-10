@@ -16,6 +16,11 @@ variables:
     description: ''
     defaultValue: jayclifford345/vibration-autoencoder
     required: false
+  - name: threshold
+    inputType: FreeText
+    description: ''
+    defaultValue: 60
+    required: false
 dockerfile: build/dockerfile
 runEntryPoint: main.py
 defaultFile: quix_function.py
