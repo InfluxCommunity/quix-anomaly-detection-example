@@ -14,14 +14,12 @@ class QuixFunction:
     # Callback triggered for each new event
     def on_event_data_handler(self, stream_consumer: qx.StreamConsumer, data: qx.EventData):
         print(data.value)
-
         # Transform your data here.
-
         self.producer_stream.events.publish(data)
 
     # Callback triggered for each new parameter data.
     def on_dataframe_handler(self, stream_consumer: qx.StreamConsumer, df: pd.DataFrame):
-# Normalize the anomalous data
+        # Normalize the anomalous data
         print(df)
         df = df.set_index('timestamp')
         anom_data = df.drop(columns=['iox::measurement', 'machineID'])
@@ -49,4 +47,4 @@ class QuixFunction:
         print(df)
 
 
-        self.producer_stream.timeseries.buffer.publish(df)  # Send filtered data to output topic
+        self.producer_stream.timeseries.buffer.publish(df)  # Send filtered data to output topic›
