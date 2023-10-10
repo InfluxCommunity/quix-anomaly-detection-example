@@ -51,6 +51,51 @@ deployments:
         description: ''
         required: true
         value: mqtt_password
+  - name: write_rawdata
+    application: write_rawdata
+    deploymentType: Service
+    version: 287d0fbe673385dbe34ed402ae5e9d5676c00f19
+    resources:
+      cpu: 200
+      memory: 500
+      replicas: 1
+    desiredStatus: Running
+    variables:
+      - name: input
+        inputType: InputTopic
+        description: This is the input topic
+        required: true
+        value: rawdata
+      - name: INFLUXDB_HOST
+        inputType: FreeText
+        description: Host address for the InfluxDB instance.
+        required: true
+        value: eu-central-1-1.aws.cloud2.influxdata.com
+      - name: INFLUXDB_TOKEN
+        inputType: FreeText
+        description: Authentication token to access InfluxDB.
+        required: true
+        value: 6c6XnbgsrCqhHUHbuqAUq9-ZhY8hx14_GENnmA1j6Af7XxDaBh3Z9zM9MAKhC03-tbnw4cVRvb8GDEVNeh9g5Q==
+      - name: INFLUXDB_ORG
+        inputType: FreeText
+        description: Organization name in InfluxDB.
+        required: false
+        value: 6a841c0c08328fb1
+      - name: INFLUXDB_DATABASE
+        inputType: FreeText
+        description: Database name in InfluxDB where data should be stored.
+        required: true
+        value: quix
+      - name: INFLUXDB_TAG_COLUMNS
+        inputType: FreeText
+        description: Columns to be used as tags when writing data to InfluxDB.
+        required: false
+        value: "['tag1', 'tag2']"
+      - name: INFLUXDB_MEASUREMENT_NAME
+        inputType: FreeText
+        description: The InfluxDB measurement to write data to. If not specified, the name of the input topic will be used
+        required: false
+        value: machine_data
 
 # This section describes the Topics of the data pipeline
 topics:
