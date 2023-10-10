@@ -1,0 +1,41 @@
+name: influxdb-query
+language: python
+variables:
+  - name: output
+    inputType: OutputTopic
+    description: This is the Quix topic that will receive the stream
+    defaultValue: influxdb
+    required: true
+  - name: task_interval
+    inputType: FreeText
+    description: Interval to run query. Must be within the InfluxDB notation; 1s, 1m, 1h, 1d, 1w, 1mo, 1y
+    defaultValue: 5m
+    required: true
+  - name: INFLUXDB_HOST
+    inputType: FreeText
+    description: Host address for the InfluxDB instance.
+    defaultValue: eu-central-1-1.aws.cloud2.influxdata.com
+    required: true
+  - name: INFLUXDB_TOKEN
+    inputType: FreeText
+    description: Authentication token to access InfluxDB.
+    defaultValue: <TOKEN>
+    required: true
+  - name: INFLUXDB_ORG
+    inputType: FreeText
+    description: Organization name in InfluxDB.
+    defaultValue: <ORG>
+    required: true
+  - name: INFLUXDB_DATABASE
+    inputType: FreeText
+    description: Database name in InfluxDB where data is stored.
+    defaultValue: <DATABASE>
+    required: true
+  - name: INFLUXDB_MEASUREMENT_NAME
+    inputType: FreeText
+    description: The InfluxDB measurement to read data from. If not specified, the name of the output topic will be used
+    defaultValue: <INSERT MEASUREMENT>
+    required: false
+dockerfile: build/dockerfile
+runEntryPoint: main.py
+defaultFile: main.py
