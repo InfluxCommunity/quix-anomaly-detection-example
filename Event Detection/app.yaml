@@ -4,7 +4,7 @@ variables:
   - name: input
     inputType: InputTopic
     description: This is the input topic for f1 data
-    defaultValue: ''
+    defaultValue: influxdb
     required: true
   - name: output
     inputType: OutputTopic
