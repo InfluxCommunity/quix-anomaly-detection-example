@@ -96,6 +96,51 @@ deployments:
         description: The InfluxDB measurement to write data to. If not specified, the name of the input topic will be used
         required: false
         value: machine_data
+  - name: influxdb-query
+    application: influxdb-query
+    deploymentType: Service
+    version: d741ad1f168171abd138e2ad75041e68bac2ad88
+    resources:
+      cpu: 200
+      memory: 500
+      replicas: 1
+    desiredStatus: Running
+    variables:
+      - name: output
+        inputType: OutputTopic
+        description: This is the Quix topic that will receive the stream
+        required: true
+        value: influxdb
+      - name: task_interval
+        inputType: FreeText
+        description: Interval to run query. Must be within the InfluxDB notation; 1s, 1m, 1h, 1d, 1w, 1mo, 1y
+        required: true
+        value: 5m
+      - name: INFLUXDB_HOST
+        inputType: FreeText
+        description: Host address for the InfluxDB instance.
+        required: true
+        value: eu-central-1-1.aws.cloud2.influxdata.com
+      - name: INFLUXDB_TOKEN
+        inputType: FreeText
+        description: Authentication token to access InfluxDB.
+        required: true
+        value: 6c6XnbgsrCqhHUHbuqAUq9-ZhY8hx14_GENnmA1j6Af7XxDaBh3Z9zM9MAKhC03-tbnw4cVRvb8GDEVNeh9g5Q==
+      - name: INFLUXDB_ORG
+        inputType: FreeText
+        description: Organization name in InfluxDB.
+        required: true
+        value: 6a841c0c08328fb1
+      - name: INFLUXDB_DATABASE
+        inputType: FreeText
+        description: Database name in InfluxDB where data is stored.
+        required: true
+        value: quix
+      - name: INFLUXDB_MEASUREMENT_NAME
+        inputType: FreeText
+        description: The InfluxDB measurement to read data from. If not specified, the name of the output topic will be used
+        required: false
+        value: machine_data
 
 # This section describes the Topics of the data pipeline
 topics:
