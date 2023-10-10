@@ -14,6 +14,7 @@ variables:
   - name: mqtt_server
     inputType: FreeText
     description: The address of your MQTT server
+    defaultValue: broker.hivemq.com
     required: true
   - name: mqtt_port
     inputType: FreeText
