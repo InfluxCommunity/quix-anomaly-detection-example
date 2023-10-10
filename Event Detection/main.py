@@ -1,7 +1,7 @@
 import quixstreams as qx
 from quix_function import QuixFunction
 import os
-
+from huggingface_hub import from_pretrained_keras
 
 # Quix injects credentials automatically to the client.
 # Alternatively, you can always pass an SDK token manually as an argument.
@@ -10,17 +10,18 @@ client = qx.QuixStreamingClient()
 print("Opening input and output topics")
 consumer_topic = client.get_topic_consumer(os.environ["input"], "default-consumer-group")
 producer_topic = client.get_topic_producer(os.environ["output"])
+model = from_pretrained_keras(os.environ["model"])
 
 
 # Callback called for each incoming stream
 def read_stream(consumer_stream: qx.StreamConsumer):
 
     # Create a new stream to output data
-    producer_stream = producer_topic.get_or_create_stream(consumer_stream.stream_id + "hard-braking")
+    producer_stream = producer_topic.get_or_create_stream(consumer_stream.stream_id + "vibration")
     producer_stream.properties.parents.append(consumer_stream.stream_id)
 
     # handle the data in a function to simplify the example
-    quix_function = QuixFunction(consumer_topic, producer_stream)
+    quix_function = QuixFunction(consumer_topic, producer_stream, model)
         
     # React to new data received from input topic.
     consumer_stream.events.on_data_received = quix_function.on_event_data_handler
