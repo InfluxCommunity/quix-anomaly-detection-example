@@ -125,7 +125,7 @@ deployments:
         inputType: FreeText
         description: Authentication token to access InfluxDB.
         required: true
-        value: 6c6XnbgsrCqhHUHbuqAUq9-ZhY8hx14_GENnmA1j6Af7XxDaBh3Z9zM9MAKhC03-tbnw4cVRvb8GDEVNeh9g5Q==
+        value: 
       - name: INFLUXDB_ORG
         inputType: FreeText
         description: Organization name in InfluxDB.
@@ -195,7 +195,7 @@ deployments:
         inputType: FreeText
         description: Authentication token to access InfluxDB.
         required: true
-        value: 2G8HlAYgKZKRsYZDtITTZRwfmvK9ITVyp6JDelIwik8wfOCLq1U_ltKJ_lsqAiis2owE4M8YaPL5M6g7kPfYiQ==
+        value: 
       - name: INFLUXDB_ORG
         inputType: FreeText
         description: Organization name in InfluxDB.
