@@ -1,6 +1,5 @@
 import quixstreams as qx
 import pandas as pd
-from sklearn.preprocessing import StandardScaler
 import numpy as np
 import os
 
@@ -28,13 +27,14 @@ class QuixFunction:
         # Use the Autoencoder to predict on the anomalous data
         predictions = self.model.predict(anom_data)
 
-        # Calculate reconstruction error
-        mse = np.mean(np.power(anom_data.values - predictions, 2), axis=1)
+        # Calculate reconstruction error for each sequence
+        mse = np.mean(np.power(anom_data.values[-predictions.shape[0]:] - predictions[:, -1, :], 2), axis=1)
 
         # Scale the MSE to a percentage
         min_mse = np.min(mse)
         max_mse = np.max(mse)
         mse_percentage = ((mse - min_mse) / (max_mse - min_mse)) * 100
+
 
         # Detect anomalies by comparing the scaled reconstruction error to some threshold
         threshold = float(os.environ["threshold"])  # Define a threshold value (in percentage)
@@ -42,6 +42,7 @@ class QuixFunction:
         # Add 'is_anomalous' column to the DataFrame
         df['is_anomalous'] = mse_percentage > threshold
         df['mse_percentage'] = mse_percentage
+
 
         df = df.reset_index().rename(columns={'timestamp': 'time'})
         print(df)
